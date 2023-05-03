@@ -1,3 +1,4 @@
+import React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 
 export const AccountsDropdown = () => {
@@ -6,7 +7,7 @@ export const AccountsDropdown = () => {
   const [show, setShow] = useState<boolean>(false);
   useEffect(() => {
     const loadAccounts = async () => {
-      const response = await fetch("http://127.0.0.1:18088/accountuser/");
+      const response = await fetch("http://127.0.0.1:18088/account/");
       if (response.ok) {
         const accounts = await response.json();
         setAccounts(accounts);
@@ -17,12 +18,18 @@ export const AccountsDropdown = () => {
     loadAccounts();
   }, [setAccounts]);
   const accountUsers = accounts.map((account:any) => {
-    return <div id={account.accountId}>{account.username}</div>
+    return <div id={account.id}>{account.displayName}</div>
   })
 
-  const handleClick = useCallback((event:any) => {
-    console.log(event.target.id);
-    setSelectedAccountId(event.target.id);
+  const handleClick = useCallback(async (event:any) => {
+    const accountId = event.target.id
+    console.log(accountId);
+    setSelectedAccountId(accountId);
+    const response = await fetch(`http://127.0.0.1:18088/accountuser/${accountId}`);
+    if (response.ok) {
+      const selectedAccount = response.json();
+      console.log(selectedAccount);
+    }
   }, []);
 
   return (
