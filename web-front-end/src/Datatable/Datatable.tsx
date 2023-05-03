@@ -1,29 +1,44 @@
-import React, { useState } from 'react';
-import { createRoot } from 'react-dom/client';
+import React, { useCallback, useState } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
+import { GetPositions } from '../hooks/GetPositions';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import { GetTrades } from '../hooks/GetTrades';
 
 export const Datatable = () => {
-	const [rowData] = useState([
-		{make: "Toyota", model: "Celica", price: 35000},
-		{make: "Ford", model: "Mondeo", price: 32000},
-		{make: "Porsche", model: "Boxster", price: 72000}
-]);
-
-const [columnDefs] = useState([
-		{ field: 'make' },
-		{ field: 'model' },
-		{ field: 'price' }
-])
+	const [rowData, setRowData] = useState<any>([]);
+	const [columnDefs, setColumnDefs] = useState<any>([]);
+	const positionsData = GetPositions();
+	const tradesData = GetTrades();
+	const handleClick = useCallback((event:any) => {
+		const selectedButton = event.target.ariaLabel;
+		let keys: any;
+		if (selectedButton === "positions") {
+			setRowData(positionsData);
+			keys = Object.keys(positionsData[0]);
+		} else if (selectedButton === "trades") {
+			setRowData(tradesData);
+			keys = Object.keys(tradesData[0]);
+		}
+		setColumnDefs([]);
+		keys.forEach((key:any) => setColumnDefs((current:any) => [...current, {field: key}]));
+	}, [positionsData, tradesData]);
 
 return (
-		<div className="ag-theme-alpine" style={{height: 400, width: 600}}>
+	<>
+		<ButtonGroup onClick={handleClick} className="mb-2">
+        <Button aria-label='trades' variant="secondary">Trades</Button>
+        <Button aria-label='positions' variant="secondary">Positions</Button>
+    </ButtonGroup>
+		<div className="ag-theme-alpine" style={{height: "80vh", width: "100%"}}>
 				<AgGridReact
 						rowData={rowData}
 						columnDefs={columnDefs}>
 				</AgGridReact>
 		</div>
+	</>
 );
 }
