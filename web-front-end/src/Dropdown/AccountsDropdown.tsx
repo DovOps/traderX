@@ -10,6 +10,7 @@ export const AccountsDropdown = () => {
       const response = await fetch("http://127.0.0.1:18088/account/");
       if (response.ok) {
         const accounts = await response.json();
+        console.log(accounts);
         setAccounts(accounts);
       } else {
         console.log('error');

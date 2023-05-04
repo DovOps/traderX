@@ -8,7 +8,7 @@ export const GetTrades = () => {
 
 		const fetchData: data = async () => {
 			try {
-				const response = await fetch("http://127.0.0.1:/trades/");
+				const response = await fetch("http://127.0.0.1:18086/trades/");
 				if (response.ok) {
 					json = await response.json();
 					setTradesData(json);
