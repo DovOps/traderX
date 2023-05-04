@@ -1,44 +1,53 @@
-import React, { MouseEvent, useCallback, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { GetPositions } from '../hooks/GetPositions';
-import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import { GetTrades } from '../hooks/GetTrades';
-import { SelectionChangeHandler } from '.';
+import { AccountsDropdown } from '../Dropdown/AccountsDropdown';
+import { Button, SelectChangeEvent } from '@mui/material';
+import { CreateTradeButton } from '../CreateTradeButton/CreateTradeButton';
 
 export const Datatable = () => {
-	const [rowData, setRowData] = useState<any>([]);
-	const [columnDefs, setColumnDefs] = useState<any>([]);
-	const positionsData = GetPositions();
-	const tradesData = GetTrades();
-	const handleSelectionChange: SelectionChangeHandler = useCallback((event) => {
-		const selectedButton = event.target.ariaLabel;
-		let keys: any;
-		if (selectedButton === "positions") {
-			setRowData(positionsData);
-			keys = Object.keys(positionsData[0]);
-		} else if (selectedButton === "trades") {
-			setRowData(tradesData);
-			keys = Object.keys(tradesData[0]);
+	const [tradeRowData, setTradeRowData] = useState<any>([]);
+	const [tradeColumnDefs, setTradeColumnDefs] = useState<any>([]);
+	const [positionRowData, setPositionRowData] = useState<any>([]);
+	const [positionColumnDefs, setPositionColumnDefs] = useState<any>([]);
+	const [selectedId, setSelectedId] = useState<number>(0);
+	
+	const positionData = GetPositions(selectedId);
+	const tradeData = GetTrades(selectedId);
+
+	const handleChange = (event:SelectChangeEvent<any>) => {
+		setSelectedId(event.target.value);
+		if (positionData && tradeData) {
+			const positionKeys = Object.keys(positionData[0]);
+			const tradeKeys = Object.keys(tradeData[0]);
+			setPositionRowData(positionData);
+			setTradeRowData(tradeData);
+			positionKeys.forEach((key:string) => setPositionColumnDefs((current: any) => [...current, {field: key}]));
+			tradeKeys.forEach((key:string) => setTradeColumnDefs((current: any) => [...current, {field: key}]));
 		}
-		setColumnDefs([]);
-		keys.forEach((key:string) => setColumnDefs((current: any) => [...current, {field: key}]));
-	}, [positionsData, tradesData]);
+  }
 
 return (
 	<>
-		<ButtonGroup onClick={handleSelectionChange} className="mb-2">
-        <Button aria-label='trades' variant="secondary">Trades</Button>
-        <Button aria-label='positions' variant="secondary">Positions</Button>
-    </ButtonGroup>
-		<div className="ag-theme-alpine" style={{height: "80vh", width: "100%"}}>
+		<div style={{width: "100%"}}>
+			<AccountsDropdown handleChange={handleChange} />
+			<CreateTradeButton />
+		</div>
+		<div className="ag-theme-alpine" style={{height: "80vh", width: "50%", float: "left"}}>
 				<AgGridReact
-						rowData={rowData}
-						columnDefs={columnDefs}>
+						rowData={tradeRowData}
+						columnDefs={tradeColumnDefs}>
 				</AgGridReact>
+		</div>
+		<div className="ag-theme-alpine" style={{height: "80vh", width: "50%", float: "right"}}>
+			<AgGridReact
+					rowData={positionRowData}
+					columnDefs={positionColumnDefs}>
+			</AgGridReact>
 		</div>
 	</>
 );

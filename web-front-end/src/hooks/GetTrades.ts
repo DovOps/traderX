@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 
-export const GetTrades = () => {
+export const GetTrades = (accountId:number) => {
 	const [tradesData, setTradesData] = useState<any>([]);
+	type data = () => Promise<unknown>;
+
 	useEffect(() => {
 		let json:any;
-		type data = () => Promise<unknown>;
-
 		const fetchData: data = async () => {
 			try {
-				const response = await fetch("http://127.0.0.1:18086/trades/");
+				// const response = await fetch(`http://127.0.0.1:18086/${accountId}/trades/`);
+				const response = await fetch(`https://finos-traderx.ngrok.app/positions/trades/22214`)
 				if (response.ok) {
 					json = await response.json();
 					setTradesData(json);
@@ -17,7 +18,7 @@ export const GetTrades = () => {
 				return error;
 			}
 		};
-		fetchData()
-	}, [tradesData])
+		fetchData();
+	}, []);
 	return tradesData;
 }

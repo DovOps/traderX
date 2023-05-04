@@ -1,12 +1,13 @@
 import './App.css';
 import { AccountsDropdown } from './Dropdown/AccountsDropdown';
 import { Datatable } from './Datatable/Datatable';
+import { FormData } from './FormData/FormData';
 
 function App() {
   return (
     <div className="App">
-      <AccountsDropdown />
       <Datatable />
+      {/* <FormData /> */}
     </div>
   );
 }

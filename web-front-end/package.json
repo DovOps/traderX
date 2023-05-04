@@ -48,7 +48,10 @@
     ]
   },
   "devDependencies": {
+    "@emotion/react": "^11.10.8",
+    "@emotion/styled": "^11.10.8",
     "@heswell/salt-lab": "^1.0.0-alpha.2",
+    "@mui/material": "^5.12.3",
     "ag-grid-community": "^29.3.3",
     "ag-grid-react": "^29.3.3",
     "react-bootstrap": "^2.7.4"
