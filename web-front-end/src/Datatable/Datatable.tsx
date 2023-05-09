@@ -15,12 +15,15 @@ export const Datatable = () => {
 	const [positionRowData, setPositionRowData] = useState<any>([]);
 	const [positionColumnDefs, setPositionColumnDefs] = useState<any>([]);
 	const [selectedId, setSelectedId] = useState<number>(0);
+	const [currentAccount, setCurrentAccount] = useState<string>('');
 	
-	const positionData = GetPositions(selectedId);
-	const tradeData = GetTrades(selectedId);
+	const positionData = GetPositions(22214);
+	const tradeData = GetTrades(22214);
 
 	const handleChange = (event:SelectChangeEvent<any>) => {
-		setSelectedId(event.target.value);
+		// setSelectedId(event.target.value);
+		console.log(event.target)
+		setCurrentAccount(event.target.value);
 		if (positionData && tradeData) {
 			const positionKeys = Object.keys(positionData[0]);
 			const tradeKeys = Object.keys(tradeData[0]);
@@ -34,7 +37,7 @@ export const Datatable = () => {
 return (
 	<>
 		<div style={{width: "100%"}}>
-			<AccountsDropdown handleChange={handleChange} />
+			<AccountsDropdown currentAccount={currentAccount} handleChange={handleChange} />
 			<CreateTradeButton />
 		</div>
 		<div className="ag-theme-alpine" style={{height: "80vh", width: "50%", float: "left"}}>

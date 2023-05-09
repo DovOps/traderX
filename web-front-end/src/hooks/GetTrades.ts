@@ -8,8 +8,7 @@ export const GetTrades = (accountId:number) => {
 		let json:any;
 		const fetchData: data = async () => {
 			try {
-				// const response = await fetch(`http://127.0.0.1:18086/${accountId}/trades/`);
-				const response = await fetch(`https://finos-traderx.ngrok.app/positions/trades/22214`)
+				const response = await fetch(`http://127.0.0.1:18090/trades/${accountId}`);
 				if (response.ok) {
 					json = await response.json();
 					setTradesData(json);
@@ -19,6 +18,6 @@ export const GetTrades = (accountId:number) => {
 			}
 		};
 		fetchData();
-	}, []);
+	}, [accountId]);
 	return tradesData;
 }

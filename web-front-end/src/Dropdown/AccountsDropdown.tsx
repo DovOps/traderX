@@ -16,16 +16,14 @@ import { SelectChangeEvent } from '@mui/material';
 //   {id: 62654, displayName: 'Hedge Fund'}
 // ]
 
-export const AccountsDropdown = ({handleChange}:any) => {
+export const AccountsDropdown = ({handleChange, currentAccount}:any) => {
   const [accounts, setAccounts] = useState<any>([]);
-  const [accountIds, setAccountIds] = useState<any>([]);
   useEffect(() => {
     const loadAccounts = async () => {
-      // const response = await fetch("http://127.0.0.1:18088/account/");
-      const response = await fetch("https://finos-traderx.ngrok.app/accounts/account/");
+      const response = await fetch("http://127.0.0.1:18088/account/");
+      // const response = await fetch(`/account/`)
       if (response.ok) {
         const accounts = await response.json();
-        console.log(accounts);
         setAccounts(accounts);
       }
       else {
@@ -39,6 +37,7 @@ export const AccountsDropdown = ({handleChange}:any) => {
     return (
       <MenuItem
         value={account.id}
+        key={account.id}
       >
         {account.displayName}
       </MenuItem>
@@ -51,7 +50,7 @@ export const AccountsDropdown = ({handleChange}:any) => {
         <Select
           labelId="demo-select-small-label"
           id="demo-select-small"
-          value={accountIds}
+          value={currentAccount}
           label="Accounts"
           onChange={handleChange}
         >
