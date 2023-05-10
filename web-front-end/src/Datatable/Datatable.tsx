@@ -17,12 +17,11 @@ export const Datatable = () => {
 	const [selectedId, setSelectedId] = useState<number>(0);
 	const [currentAccount, setCurrentAccount] = useState<string>('');
 	
-	const positionData = GetPositions(22214);
-	const tradeData = GetTrades(22214);
+	const positionData = GetPositions(selectedId);
+	const tradeData = GetTrades(selectedId);
 
 	const handleChange = (event:SelectChangeEvent<any>) => {
-		// setSelectedId(event.target.value);
-		console.log(event.target)
+		setSelectedId(event.target.value);
 		setCurrentAccount(event.target.value);
 		if (positionData && tradeData) {
 			const positionKeys = Object.keys(positionData[0]);

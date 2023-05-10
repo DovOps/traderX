@@ -4,6 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { SelectChangeEvent } from '@mui/material';
+import React from 'react';
 
 // type SelectionChange = (event: SelectChangeEvent<any>) => void
 // const accountData = [
@@ -46,10 +47,10 @@ export const AccountsDropdown = ({handleChange, currentAccount}:any) => {
 
   return (
       <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-        <InputLabel id="demo-select-small-label">UserAccount</InputLabel>
+        <InputLabel>UserAccount</InputLabel>
         <Select
-          labelId="demo-select-small-label"
-          id="demo-select-small"
+          // labelId="demo-select-small-label"
+          // id="demo-select-small"
           value={currentAccount}
           label="Accounts"
           onChange={handleChange}
