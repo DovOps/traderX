@@ -1,10 +1,12 @@
 import { Box, Button, Modal, Typography } from "@mui/material"
-import { FormEvent, useState } from "react";
-import { RJSFSchema } from '@rjsf/utils';
+import { FormEvent, useEffect, useState } from "react";
+import { RJSFSchema, dataURItoBlob } from '@rjsf/utils';
 import validator from '@rjsf/validator-ajv8';
 import Form, { IChangeEvent } from '@rjsf/core';
+import React from "react";
 
 export const CreateTradeButton = () => {
+	const [refData, setRefData] = useState<any>([]);
 	const style = {
 		position: 'absolute' as 'absolute',
 		top: '50%',
@@ -16,19 +18,34 @@ export const CreateTradeButton = () => {
 		boxShadow: 24,
 		p: 4,
 	};
+	// // useEffect(() => {
+	// // 	const loadRefData = async () => {
+  // //     const response = await fetch("http://127.0.0.1:18085/stocks");
+  // //     if (response.ok) {
+  // //       const data = await response.json();
+	// // 			console.log(data);
+  // //       setRefData(data);
+  // //     }
+  // //     else {
+  // //       console.log('error');
+  // //     }
+  // //     // setAccounts(accountData);
+  // //   }
+  // //   loadRefData();
+	// }, []);
 	const tradeId = Math.floor(Math.random() * 1000000)
 	const schema: RJSFSchema = {
 		title: 'Create/Update Account',
 		type: 'object',
-		required: ['accountId', 'id', 'accountDisplayName', 'security', 'quantity', 'side'],
+		required: ['security', 'quantity', 'side'],
 		properties: {
-			security: { type: 'string', title: 'Security', enum: ["MMM", "IBM", "Tesla", "UBS"] },
-			id: { type: 'integer', title: 'Trade ID', default: `TRADE-${tradeId}` },
-			accountId: { type: 'integer', title: 'Account ID', default: 'to be done' },
-			accountDisplayName: { type: 'string', title: 'Account Display Name' },
+			security: { type: 'string', title: 'Security', enum: refData },
+			// id: { type: 'integer', title: 'Trade ID', default: `TRADE-${tradeId}` },
+			// accountId: { type: 'integer', title: 'Account ID', default: 'to be done' },
+			// accountDisplayName: { type: 'string', title: 'Account Display Name' },
 			// '': { type: "string" ,"enum": ["MMM", "IBM", "Tesla", "UBS"]}
 			quantity: { type: 'integer', title: 'Quantity'},
-			side: { type: 'string', title: 'Side' }
+			side: { type: 'string', title: 'Side', enum: ['Buy', 'Sell'] }
 		},
 	};
 	const uiSchema = {
@@ -38,10 +55,11 @@ export const CreateTradeButton = () => {
 				"type": "Control",
 				"scope": "#/properties/''",
 				"options": {
+					"ui:widget": "button",
 					"autocomplete": true
 				}
 			}
-		]
+		],
 	}
 	const log = (type:string) => console.log.bind(console, type);
 	// const onSubmit = (type:string) => {
@@ -63,12 +81,24 @@ export const CreateTradeButton = () => {
 	}
 	const [open, setOpen] = useState<boolean>(false);
   const handleClose = () => setOpen(false);
-	const handleClick = () => {
+	const handleOpen = async () => {
 		setOpen(true);
+		try {
+			const response = await fetch("http://127.0.0.1:18085/stocks");
+			const data = await response.json();
+			console.log(data);
+			setRefData([])
+			data.forEach((refData:any) => {
+				return (
+					setRefData((prevData:any) => [...prevData, refData.ticker]))
+			})
+		} catch (error) {
+			throw error
+		}
 	}
 	return (
 		<div className="button-container">
-			<Button onClick={handleClick} variant="contained">Create New Trade</Button>
+			<Button onClick={handleOpen} variant="contained">Create New Trade</Button>
 				<Modal
 					open={open}
 					onClose={handleClose}
@@ -76,16 +106,17 @@ export const CreateTradeButton = () => {
 					aria-describedby="modal-modal-description"
 				>
 				<Box sx={style}>
-					<Typography id="modal-modal-description" sx={{ mt: 2 }}>
-						<Form
-							schema={schema}
-							uiSchema={uiSchema}
-							validator={validator}
-							onChange={log('changed')}
-							onSubmit={onSubmit}
-							onError={log('errors')}
-						/>
-					</Typography>
+					<Form
+						schema={schema}
+						uiSchema={uiSchema}
+						validator={validator}
+						onChange={log('changed')}
+						onSubmit={onSubmit}
+						// onError={log('errors')}
+					>
+						{/* <Button variant="contained">Buy</Button>
+						<Button variant="contained">Sell</Button> */}
+					</Form>
 				</Box>
 				</Modal>
 		</div>
