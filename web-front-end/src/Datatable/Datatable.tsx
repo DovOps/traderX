@@ -10,6 +10,7 @@ import { Button, SelectChangeEvent } from '@mui/material';
 import { CreateTradeButton } from '../CreateTradeButton/CreateTradeButton';
 import { socket } from '../socket';
 import { CreateAccount } from '../CreateAccount';
+import { CreateAccountUser } from '../CreateAccountUser/CreateAccountUser';
 
 const PUBLISH='publish';
 const SUBSCRIBE='subscribe';
@@ -53,7 +54,8 @@ return (
 		<div style={{width: "100%"}}>
 			<AccountsDropdown currentAccount={currentAccount} handleChange={handleChange} />
 			<CreateTradeButton accountId={selectedId} />
-			<CreateAccount accountId={selectedId} />
+			<CreateAccount />
+			<CreateAccountUser />
 		</div>
 		<div className="ag-theme-alpine" style={{height: "80vh", width: "50%", float: "left"}}>
 				<AgGridReact

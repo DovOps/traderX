@@ -18,7 +18,8 @@ const style = {
 	p: 4,
 };
 
-export const CreateAccount = ({accountId}:any) => {
+export const CreateAccount = () => {
+	const accountId = Math.floor(Math.random() * 10000)
 	const schema: RJSFSchema = {
 		title: 'Create Account',
 		type: 'object',
