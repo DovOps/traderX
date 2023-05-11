@@ -18,29 +18,12 @@ const style = {
 	p: 4,
 };
 
-export const CreateAccount = () => {
-	const accountId = Math.floor(Math.random() * 10000)
-	const accounts = GetAccounts()
-	// setRefData([])
-	// 		data.forEach((refData:any) => {
-	// 			return (
-	// 				setRefData((prevData:any) => [...prevData, refData.companyName]))
-	// 		})
-	const [accountDisplayNames, setAccountDisplayNames] = useState<any>([])
-	useEffect(() => {
-		setAccountDisplayNames([])
-		accounts.forEach((account:any) => {
-			return (
-				setAccountDisplayNames((prevData:any) => [...prevData, account.displayName])
-			)
-		})
-	}, [accounts])
+export const CreateAccount = ({accountId}:any) => {
 	const schema: RJSFSchema = {
 		title: 'Create Account',
 		type: 'object',
 		required: ['displayName'],
 		properties: {
-			availableUserAccounts: { type: 'string', title: 'Available User Accounts', enum: accountDisplayNames},
 			displayName: { type: 'string', title: 'Display Name' },
 		},
 	};
@@ -57,23 +40,10 @@ export const CreateAccount = () => {
 			}
 		],
 	}
-	const log = (type:string) => console.log.bind(console, type);
 	const [open, setOpen] = useState<boolean>(false);
   const handleClose = () => setOpen(false);
-	const handleOpen = async () => {
+	const handleOpen = () => {
 		setOpen(true);
-		// try {
-		// 	const response = await fetch("http://127.0.0.1:18085/stocks");
-		// 	const data = await response.json();
-		// 	console.log(data);
-		// 	setRefData([])
-		// 	data.forEach((refData:any) => {
-		// 		return (
-		// 			setRefData((prevData:any) => [...prevData, refData.companyName]))
-		// 	})
-		// } catch (error) {
-		// 	throw error
-		// }
 	}
 	const onSubmit = async (data: IChangeEvent<any>, _event: FormEvent<any>) => {
 		const accountDetails = data.formData;
@@ -92,6 +62,7 @@ export const CreateAccount = () => {
 			console.log('error');
 		}
 	}
+
 	return (
 		<div className="button-modal-container">
 			<Button onClick={handleOpen} variant="contained">Create Account</Button>
@@ -106,7 +77,6 @@ export const CreateAccount = () => {
 						schema={schema}
 						uiSchema={uiSchema}
 						validator={validator}
-						onChange={log('changed')}
 						onSubmit={onSubmit}
 						// onError={log('errors')}
 					>

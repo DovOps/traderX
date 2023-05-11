@@ -53,7 +53,7 @@ return (
 		<div style={{width: "100%"}}>
 			<AccountsDropdown currentAccount={currentAccount} handleChange={handleChange} />
 			<CreateTradeButton accountId={selectedId} />
-			<CreateAccount />
+			<CreateAccount accountId={selectedId} />
 		</div>
 		<div className="ag-theme-alpine" style={{height: "80vh", width: "50%", float: "left"}}>
 				<AgGridReact
