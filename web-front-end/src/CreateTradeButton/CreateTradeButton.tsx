@@ -5,7 +5,7 @@ import validator from '@rjsf/validator-ajv8';
 import Form, { IChangeEvent } from '@rjsf/core';
 import React from "react";
 
-export const CreateTradeButton = () => {
+export const CreateTradeButton = ({accountId}:any) => {
 	const [refData, setRefData] = useState<any>([]);
 	const style = {
 		position: 'absolute' as 'absolute',
@@ -65,12 +65,19 @@ export const CreateTradeButton = () => {
 	// const onSubmit = (type:string) => {
 	// 	console.log(type);
 	// } 
-	const onSubmit = async (data: IChangeEvent<any>, event: FormEvent<any>) => {
+	const onSubmit = async (data: IChangeEvent<any>, _event: FormEvent<any>) => {
 		console.log(data.formData);
-		const response = await fetch('https://finos-traderx.ngrok.app/trade/trade', {
+		const tradeDetails = data.formData;
+		const response = await fetch('http://127.0.0.1:18092/trade/', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(data.formData),
+			body: JSON.stringify({
+				id: `TRADE-${tradeId}`,
+				security: tradeDetails.security,
+				quantity: tradeDetails.quantity,
+				accountId: accountId,
+				side: tradeDetails.side,
+			}),
 		});
 		if (response.ok) {
 			setOpen(false);
@@ -90,7 +97,7 @@ export const CreateTradeButton = () => {
 			setRefData([])
 			data.forEach((refData:any) => {
 				return (
-					setRefData((prevData:any) => [...prevData, refData.ticker]))
+					setRefData((prevData:any) => [...prevData, refData.companyName]))
 			})
 		} catch (error) {
 			throw error

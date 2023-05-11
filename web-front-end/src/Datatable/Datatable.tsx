@@ -8,6 +8,12 @@ import { GetTrades } from '../hooks/GetTrades';
 import { AccountsDropdown } from '../Dropdown/AccountsDropdown';
 import { Button, SelectChangeEvent } from '@mui/material';
 import { CreateTradeButton } from '../CreateTradeButton/CreateTradeButton';
+import { socket } from '../socket';
+// import { Socket } from 'socket.io';
+
+const PUBLISH='publish';
+const SUBSCRIBE='subscribe';
+const UNSUBSCRIBE='unsubscribe';
 
 export const Datatable = () => {
 	const [tradeRowData, setTradeRowData] = useState<any>([]);
@@ -17,6 +23,8 @@ export const Datatable = () => {
 	const [selectedId, setSelectedId] = useState<number>(0);
 	const [currentAccount, setCurrentAccount] = useState<string>('');
 	
+	// const socket = io
+
 	const positionData = GetPositions(selectedId);
 	const tradeData = GetTrades(selectedId);
 
@@ -28,16 +36,20 @@ export const Datatable = () => {
 			const tradeKeys = Object.keys(tradeData[0]);
 			setPositionRowData(positionData);
 			setTradeRowData(tradeData);
+			setPositionColumnDefs([])
+			setTradeColumnDefs([]);
 			positionKeys.forEach((key:string) => setPositionColumnDefs((current: any) => [...current, {field: key}]));
 			tradeKeys.forEach((key:string) => setTradeColumnDefs((current: any) => [...current, {field: key}]));
 		}
+		socket.emit(SUBSCRIBE,`/accounts/${event.target.value}/trades`);
+		socket.emit(SUBSCRIBE,`/accounts/${event.target.value}/positions`);
   }
 
 return (
 	<>
 		<div style={{width: "100%"}}>
 			<AccountsDropdown currentAccount={currentAccount} handleChange={handleChange} />
-			<CreateTradeButton />
+			<CreateTradeButton accountId={selectedId} />
 		</div>
 		<div className="ag-theme-alpine" style={{height: "80vh", width: "50%", float: "left"}}>
 				<AgGridReact
