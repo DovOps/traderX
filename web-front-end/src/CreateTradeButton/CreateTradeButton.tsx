@@ -1,38 +1,24 @@
-import { Box, Button, Modal, Typography } from "@mui/material"
-import { FormEvent, useEffect, useState } from "react";
-import { RJSFSchema, dataURItoBlob } from '@rjsf/utils';
+import { Box, Button, Modal } from "@mui/material"
+import { FormEvent, useState } from "react";
+import { RJSFSchema, } from '@rjsf/utils';
 import validator from '@rjsf/validator-ajv8';
 import Form, { IChangeEvent } from '@rjsf/core';
 import React from "react";
 
+const style = {
+	position: 'absolute' as 'absolute',
+	top: '50%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)',
+	width: 400,
+	bgcolor: 'background.paper',
+	border: '2px solid #000',
+	boxShadow: 24,
+	p: 4,
+};
+
 export const CreateTradeButton = ({accountId}:any) => {
 	const [refData, setRefData] = useState<any>([]);
-	const style = {
-		position: 'absolute' as 'absolute',
-		top: '50%',
-		left: '50%',
-		transform: 'translate(-50%, -50%)',
-		width: 400,
-		bgcolor: 'background.paper',
-		border: '2px solid #000',
-		boxShadow: 24,
-		p: 4,
-	};
-	// // useEffect(() => {
-	// // 	const loadRefData = async () => {
-  // //     const response = await fetch("http://127.0.0.1:18085/stocks");
-  // //     if (response.ok) {
-  // //       const data = await response.json();
-	// // 			console.log(data);
-  // //       setRefData(data);
-  // //     }
-  // //     else {
-  // //       console.log('error');
-  // //     }
-  // //     // setAccounts(accountData);
-  // //   }
-  // //   loadRefData();
-	// }, []);
 	const tradeId = Math.floor(Math.random() * 1000000)
 	const schema: RJSFSchema = {
 		title: 'Create/Update Account',
@@ -40,10 +26,6 @@ export const CreateTradeButton = ({accountId}:any) => {
 		required: ['security', 'quantity', 'side'],
 		properties: {
 			security: { type: 'string', title: 'Security', enum: refData },
-			// id: { type: 'integer', title: 'Trade ID', default: `TRADE-${tradeId}` },
-			// accountId: { type: 'integer', title: 'Account ID', default: 'to be done' },
-			// accountDisplayName: { type: 'string', title: 'Account Display Name' },
-			// '': { type: "string" ,"enum": ["MMM", "IBM", "Tesla", "UBS"]}
 			quantity: { type: 'integer', title: 'Quantity'},
 			side: { type: 'string', title: 'Side', enum: ['Buy', 'Sell'] }
 		},
@@ -62,11 +44,7 @@ export const CreateTradeButton = ({accountId}:any) => {
 		],
 	}
 	const log = (type:string) => console.log.bind(console, type);
-	// const onSubmit = (type:string) => {
-	// 	console.log(type);
-	// } 
 	const onSubmit = async (data: IChangeEvent<any>, _event: FormEvent<any>) => {
-		console.log(data.formData);
 		const tradeDetails = data.formData;
 		const response = await fetch('http://127.0.0.1:18092/trade/', {
 			method: 'POST',
@@ -104,7 +82,7 @@ export const CreateTradeButton = ({accountId}:any) => {
 		}
 	}
 	return (
-		<div className="button-container">
+		<div className="button-modal-container">
 			<Button onClick={handleOpen} variant="contained">Create New Trade</Button>
 				<Modal
 					open={open}
