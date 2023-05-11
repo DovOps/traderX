@@ -5,6 +5,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { SelectChangeEvent } from '@mui/material';
 import React from 'react';
+import { GetAccounts } from '../hooks';
 
 // type SelectionChange = (event: SelectChangeEvent<any>) => void
 // const accountData = [
@@ -18,22 +19,7 @@ import React from 'react';
 // ]
 
 export const AccountsDropdown = ({handleChange, currentAccount}:any) => {
-  const [accounts, setAccounts] = useState<any>([]);
-  useEffect(() => {
-    const loadAccounts = async () => {
-      const response = await fetch("http://127.0.0.1:18088/account/");
-      // const response = await fetch(`/account/`)
-      if (response.ok) {
-        const accounts = await response.json();
-        setAccounts(accounts);
-      }
-      else {
-        console.log('error');
-      }
-      // setAccounts(accountData);
-    }
-    loadAccounts();
-  }, [setAccounts]);
+  const accounts = GetAccounts()
   const accountUsers = accounts.map((account:any) => {
     return (
       <MenuItem
@@ -47,7 +33,7 @@ export const AccountsDropdown = ({handleChange, currentAccount}:any) => {
 
   return (
       <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-        <InputLabel>UserAccount</InputLabel>
+        <InputLabel>Accounts</InputLabel>
         <Select
           // labelId="demo-select-small-label"
           // id="demo-select-small"

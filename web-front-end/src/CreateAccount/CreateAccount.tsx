@@ -1,9 +1,10 @@
 import { Box, Button, Modal } from "@mui/material"
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { RJSFSchema, } from '@rjsf/utils';
 import validator from '@rjsf/validator-ajv8';
 import Form, { IChangeEvent } from '@rjsf/core';
 import React from "react";
+import { GetAccounts } from "../hooks";
 
 const style = {
 	position: 'absolute' as 'absolute',
@@ -19,11 +20,27 @@ const style = {
 
 export const CreateAccount = () => {
 	const accountId = Math.floor(Math.random() * 10000)
+	const accounts = GetAccounts()
+	// setRefData([])
+	// 		data.forEach((refData:any) => {
+	// 			return (
+	// 				setRefData((prevData:any) => [...prevData, refData.companyName]))
+	// 		})
+	const [accountDisplayNames, setAccountDisplayNames] = useState<any>([])
+	useEffect(() => {
+		setAccountDisplayNames([])
+		accounts.forEach((account:any) => {
+			return (
+				setAccountDisplayNames((prevData:any) => [...prevData, account.displayName])
+			)
+		})
+	}, [accounts])
 	const schema: RJSFSchema = {
 		title: 'Create Account',
 		type: 'object',
 		required: ['displayName'],
 		properties: {
+			availableUserAccounts: { type: 'string', title: 'Available User Accounts', enum: accountDisplayNames},
 			displayName: { type: 'string', title: 'Display Name' },
 		},
 	};
