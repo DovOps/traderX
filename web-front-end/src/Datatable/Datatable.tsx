@@ -9,7 +9,6 @@ import { AccountsDropdown } from '../Dropdown/AccountsDropdown';
 import { Button, SelectChangeEvent } from '@mui/material';
 import { CreateTradeButton } from '../CreateTradeButton/CreateTradeButton';
 import { socket } from '../socket';
-// import { Socket } from 'socket.io';
 
 const PUBLISH='publish';
 const SUBSCRIBE='subscribe';
@@ -22,25 +21,25 @@ export const Datatable = () => {
 	const [positionColumnDefs, setPositionColumnDefs] = useState<any>([]);
 	const [selectedId, setSelectedId] = useState<number>(0);
 	const [currentAccount, setCurrentAccount] = useState<string>('');
-	
-	// const socket = io
 
 	const positionData = GetPositions(selectedId);
 	const tradeData = GetTrades(selectedId);
 
 	const handleChange = (event:SelectChangeEvent<any>) => {
+		if (selectedId !== 0){
+			socket.emit(UNSUBSCRIBE,`/accounts/${selectedId}/trades`);
+			socket.emit(UNSUBSCRIBE,`/accounts/${selectedId}/positions`);
+		}
 		setSelectedId(event.target.value);
 		setCurrentAccount(event.target.value);
-		if (positionData && tradeData) {
-			const positionKeys = Object.keys(positionData[0]);
-			const tradeKeys = Object.keys(tradeData[0]);
-			setPositionRowData(positionData);
-			setTradeRowData(tradeData);
-			setPositionColumnDefs([])
-			setTradeColumnDefs([]);
-			positionKeys.forEach((key:string) => setPositionColumnDefs((current: any) => [...current, {field: key}]));
-			tradeKeys.forEach((key:string) => setTradeColumnDefs((current: any) => [...current, {field: key}]));
-		}
+		const positionKeys = Object.keys(positionData[0]);
+		const tradeKeys = Object.keys(tradeData[0]);
+		setPositionRowData(positionData);
+		setTradeRowData(tradeData);
+		setPositionColumnDefs([])
+		setTradeColumnDefs([]);
+		positionKeys.forEach((key:string) => setPositionColumnDefs((current: any) => [...current, {field: key}]));
+		tradeKeys.forEach((key:string) => setTradeColumnDefs((current: any) => [...current, {field: key}]));
 		socket.emit(SUBSCRIBE,`/accounts/${event.target.value}/trades`);
 		socket.emit(SUBSCRIBE,`/accounts/${event.target.value}/positions`);
   }
