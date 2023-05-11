@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 
 import 'ag-grid-community/styles/ag-grid.css';
@@ -14,6 +14,8 @@ const PUBLISH='publish';
 const SUBSCRIBE='subscribe';
 const UNSUBSCRIBE='unsubscribe';
 
+
+
 export const Datatable = () => {
 	const [tradeRowData, setTradeRowData] = useState<any>([]);
 	const [tradeColumnDefs, setTradeColumnDefs] = useState<any>([]);
@@ -25,7 +27,7 @@ export const Datatable = () => {
 	const positionData = GetPositions(selectedId);
 	const tradeData = GetTrades(selectedId);
 
-	const handleChange = (event:SelectChangeEvent<any>) => {
+	const handleChange = useCallback((event:SelectChangeEvent<any>) => {
 		if (selectedId !== 0){
 			socket.emit(UNSUBSCRIBE,`/accounts/${selectedId}/trades`);
 			socket.emit(UNSUBSCRIBE,`/accounts/${selectedId}/positions`);
@@ -42,7 +44,8 @@ export const Datatable = () => {
 		tradeKeys.forEach((key:string) => setTradeColumnDefs((current: any) => [...current, {field: key}]));
 		socket.emit(SUBSCRIBE,`/accounts/${event.target.value}/trades`);
 		socket.emit(SUBSCRIBE,`/accounts/${event.target.value}/positions`);
-  }
+  }, [positionData, tradeData, selectedId])
+
 
 return (
 	<>
