@@ -1,18 +1,15 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import { GetPositions } from '../hooks/GetPositions';
-import { GetTrades } from '../hooks/GetTrades';
-import { AccountsDropdown } from '../Dropdown/AccountsDropdown';
-import { Button, SelectChangeEvent } from '@mui/material';
-import { CreateTradeButton } from '../CreateTradeButton/CreateTradeButton';
+import { SelectChangeEvent } from '@mui/material';
 import { socket } from '../socket';
-import { CreateAccount } from '../CreateAccount';
-import { CreateAccountUser } from '../CreateAccountUser/CreateAccountUser';
+import { GetPositions, GetTrades } from '../hooks';
+import { AccountsDropdown } from '../AccountsDropdown';
+import { CreateAccount, CreateAccountUser, CreateTradeButton } from '../ActionButtons';
 
-const PUBLISH='publish';
+// const PUBLISH='publish';
 const SUBSCRIBE='subscribe';
 const UNSUBSCRIBE='unsubscribe';
 
@@ -51,8 +48,10 @@ export const Datatable = () => {
 
 return (
 	<>
-		<div style={{width: "100%"}}>
+		<div className="accounts-dropdown">
 			<AccountsDropdown currentAccount={currentAccount} handleChange={handleChange} />
+		</div>
+		<div className="action-buttons" style={{width: "100%", display: "flex"}}>
 			<CreateTradeButton accountId={selectedId} />
 			<CreateAccount />
 			<CreateAccountUser />
