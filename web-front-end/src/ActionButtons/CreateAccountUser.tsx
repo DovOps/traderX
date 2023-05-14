@@ -1,18 +1,22 @@
 import { Box, Button, Modal, } from "@mui/material"
-import { FormEvent, useCallback, useState } from "react";
+import { FormEvent, SetStateAction, useCallback, useState } from "react";
 import { RJSFSchema, } from '@rjsf/utils';
 import validator from '@rjsf/validator-ajv8';
 import Form, { IChangeEvent } from '@rjsf/core';
 import { style } from "../style";
+import { ActionButtonsProps, PeopleData } from "./types";
+import { MatchingPeople } from "../AccountsDropdown";
 
-export const CreateAccountUser = ({accountId}:any) => {
-	const [matchingPeople, setMatchingPeople] = useState<any>([]);
+export const CreateAccountUser = (
+	{accountId}:ActionButtonsProps
+	) => {
+	const [matchingPeople, setMatchingPeople] = useState<MatchingPeople[]>([]);
 	const schema: RJSFSchema = {
 		title: 'Create/Update Account Users',
 		type: 'object',
 		required: ['username, fullName'],
 		properties: {
-			fullName: { type: 'string', title: 'Full Name', enum: matchingPeople},
+			fullName: { type: 'string', title: 'Full Name' },
 			username: { type: 'string', title: 'Username' },
 		},
 	};
@@ -52,15 +56,15 @@ export const CreateAccountUser = ({accountId}:any) => {
 		}
 	}
 
-	const onChange = useCallback(async (event:any) => {
-		// type data = () => Promise<unknown>;
-		let json:any;
+	const onChange = useCallback(async (data: IChangeEvent<any>) => {
+		let json:PeopleData[];
+		console.log(data.formData)
 			try {
-					const response = await fetch(`http://127.0.0.1:18095/People/GetMatchingPeople?SearchText=${event.target.value}`);
+					const response = await fetch(`http://127.0.0.1:18095/People/GetMatchingPeople?SearchText=${data.formData.fullName}`);
 					json = await response.json();
 					setMatchingPeople([]);
 					json.forEach((data:any) => {
-						setMatchingPeople((prevData:any) => [...prevData, data.fullName])
+						setMatchingPeople((prevData:MatchingPeople[]) => [...prevData, data.fullName])
 					})
 			} catch (error) {
 				return error;

@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
+import { PositionData } from "../Datatable/types";
 
 export const GetPositions = (accountId:number) => {
-	const [positionsData, setPositionsData] = useState<any>([]);
+	const [positionsData, setPositionsData] = useState<PositionData[]>([]);
 	type data = () => Promise<unknown>;
 	useEffect(() => {
-		let json:any;
+		let json:SetStateAction<PositionData[]>;
 		const fetchData: data = async () => {
 			try {
 				const response = await fetch(`http://127.0.0.1:18090/positions/${accountId}`);

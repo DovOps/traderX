@@ -6,8 +6,10 @@ import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { SelectChangeEvent } from '@mui/material';
 import { socket } from '../socket';
 import { GetPositions, GetTrades } from '../hooks';
-import { AccountsDropdown } from '../AccountsDropdown';
 import { CreateAccount, CreateAccountUser, CreateTradeButton } from '../ActionButtons';
+import { ColDef } from 'ag-grid-community';
+import { PositionData, TradeData } from './types';
+import { AccountsDropdown } from '../AccountsDropdown';
 
 // const PUBLISH='publish';
 const SUBSCRIBE='subscribe';
@@ -16,10 +18,10 @@ const UNSUBSCRIBE='unsubscribe';
 
 
 export const Datatable = () => {
-	const [tradeRowData, setTradeRowData] = useState<any>([]);
-	const [tradeColumnDefs, setTradeColumnDefs] = useState<any>([]);
-	const [positionRowData, setPositionRowData] = useState<any>([]);
-	const [positionColumnDefs, setPositionColumnDefs] = useState<any>([]);
+	const [tradeRowData, setTradeRowData] = useState<TradeData[]>([]);
+	const [tradeColumnDefs, setTradeColumnDefs] = useState<ColDef[]>([]);
+	const [positionRowData, setPositionRowData] = useState<PositionData[]>([]);
+	const [positionColumnDefs, setPositionColumnDefs] = useState<ColDef[]>([]);
 	const [selectedId, setSelectedId] = useState<number>(0);
 	const [currentAccount, setCurrentAccount] = useState<string>('');
 
@@ -39,8 +41,8 @@ export const Datatable = () => {
 		setTradeRowData(tradeData);
 		setPositionColumnDefs([])
 		setTradeColumnDefs([]);
-		positionKeys.forEach((key:string) => setPositionColumnDefs((current: any) => [...current, {field: key}]));
-		tradeKeys.forEach((key:string) => setTradeColumnDefs((current: any) => [...current, {field: key}]));
+		positionKeys.forEach((key:string) => setPositionColumnDefs((current: ColDef<PositionData>[]) => [...current, {field: key}]));
+		tradeKeys.forEach((key:string) => setTradeColumnDefs((current: ColDef<TradeData>[]) => [...current, {field: key}]));
 		socket.emit(SUBSCRIBE,`/accounts/${event.target.value}/trades`);
 		socket.emit(SUBSCRIBE,`/accounts/${event.target.value}/positions`);
   }, [positionData, tradeData, selectedId])
@@ -54,7 +56,7 @@ return (
 		<div className="action-buttons" style={{width: "100%", display: "flex"}}>
 			<CreateTradeButton accountId={selectedId} />
 			<CreateAccount />
-			<CreateAccountUser />
+			<CreateAccountUser accountId={selectedId} />
 		</div>
 		<div className="ag-theme-alpine" style={{height: "80vh", width: "50%", float: "left"}}>
 				<AgGridReact

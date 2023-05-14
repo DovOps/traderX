@@ -1,13 +1,12 @@
 import { Box, Button,  Modal, ToggleButton, ToggleButtonGroup } from "@mui/material"
-import { useCallback, useRef, useState } from "react";
+import { MouseEvent, useCallback, useRef, useState } from "react";
 import { RJSFSchema, } from '@rjsf/utils';
 import validator from '@rjsf/validator-ajv8';
 import Form, { IChangeEvent } from '@rjsf/core';
 import { style } from "../style";
+import { ActionButtonsProps, RefData, RefDataCompanyNames, Side } from "./types";
 
-type Side = 'Buy' | 'Sell' | undefined;
-
-export const CreateTradeButton = ({accountId}:any) => {
+export const CreateTradeButton = ({accountId}:ActionButtonsProps) => {
 	const [refData, setRefData] = useState<any>([]);
 	const tradeId = Math.floor(Math.random() * 1000000)
 	const schema: RJSFSchema = {
@@ -59,9 +58,11 @@ export const CreateTradeButton = ({accountId}:any) => {
 			const response = await fetch("http://127.0.0.1:18085/stocks");
 			const data = await response.json();
 			setRefData([])
-			data.forEach((refData:any) => {
+			data.forEach((refData:RefData) => {
 				return (
-					setRefData((prevData:any) => [...prevData, refData.companyName]))
+					setRefData((
+						prevData:RefDataCompanyNames[]
+						) => [...prevData, refData.companyName]))
 			})
 		} catch (error) {
 			return error
@@ -73,9 +74,8 @@ export const CreateTradeButton = ({accountId}:any) => {
 	const formDataRef = useRef<any>([]);
 
   const handleToggleChange = useCallback((
-    // event: MouseEvent<HTMLElement>,
-		event: any,
-    newSide: Side,
+    _event: MouseEvent<HTMLElement>,
+		newSide: Side,
   ) => {
 		sideRef.current = newSide;
     // setSide(newSide);
