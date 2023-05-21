@@ -1,12 +1,12 @@
-# FINOS | TraderX Sample Trading App | Web Front End
+# Getting Started with Create React App
 
-![DEV Only Warning](https://badgen.net/badge/warning/not-for-production/red) ![Local Dev Machine Supported](http://badgen.net/badge/local-dev/supported/green)
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-The Web Front End provides a UI for users to select an account, view trades and positions, initiate new trades, and to administer the accounts themselves.
+## Available Scripts
 
-For the trade  and position blotters, it will need to query the position service, and subscribe to a given account on the trade feed for incremental updates.
+In the project directory, you can run:
 
-For executing trades, it will need to query the account service to select an account, the security reference data service to resolve securities, and the trade service for submitting a trade to be executed.
+### `npm start`
 
 For managing accounts it will need to connect to the account service to query and update accounts, and to the people service for resolving users to associate with accounts.
 
