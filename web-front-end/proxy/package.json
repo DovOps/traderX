@@ -22,7 +22,7 @@
     "express-rate-limit": "^5.2.6",
     "express-session": "^1.17.1",
     "http-proxy-middleware": "^1.1.2",
-    "keycloak-connect": "^22.0.1",
+    "keycloak-connect": "^22.0.0",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
