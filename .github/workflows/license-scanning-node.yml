@@ -14,12 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ['16.x']
+        node-version: ['20.x']
         module-folder: [
           'reference-data',
           'trade-feed',
           'web-front-end/angular',
-          'web-front-end/proxy',
           'web-front-end/react'
         ]
     steps:
