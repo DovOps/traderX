@@ -11,7 +11,6 @@ Following the documentation for Pulsar 3.1.x standalone [which can be found here
 ## Step 1: Installing the binaries into the 'pulsar' directory
 
 ```sh
-cd pulsar
 wget https://archive.apache.org/dist/pulsar/pulsar-3.1.0/apache-pulsar-3.1.0-bin.tar.gz
 tar xvfz apache-pulsar-3.1.0-bin.tar.gz
 cd apache-pulsar-3.1.0
