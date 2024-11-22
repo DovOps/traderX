@@ -16,23 +16,23 @@ public class PubSubConfig {
     @Value("${trade.feed.address}")
     private String tradeFeedAddress;
 
-    @Bean 
-    public Publisher<Position> positionPublisher() {
+    @Bean
+    Publisher<Position> positionPublisher() {
         SocketIOJSONPublisher<Position> publisher = new SocketIOJSONPublisher<Position>(){};
         publisher.setSocketAddress(tradeFeedAddress);
         return publisher;
     }
 
-    @Bean 
-    public Publisher<Trade> tradePublisher() {
+    @Bean
+    Publisher<Trade> tradePublisher() {
         SocketIOJSONPublisher<Trade> publisher = new SocketIOJSONPublisher<Trade>(){};
         publisher.setSocketAddress(tradeFeedAddress);
         return publisher;
     }
 
-    
-    @Bean 
-    public Subscriber<TradeOrder> tradeFeedHandler() {
+
+    @Bean
+    Subscriber<TradeOrder> tradeFeedHandler() {
         TradeFeedHandler handler=new TradeFeedHandler();
         handler.setDefaultTopic("/trades");
         handler.setSocketAddress(tradeFeedAddress);

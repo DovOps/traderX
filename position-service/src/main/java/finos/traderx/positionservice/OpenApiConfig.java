@@ -15,7 +15,7 @@ public class OpenApiConfig {
     private int port = 18090;
 
     @Bean
-    public OpenAPI config() {
+    OpenAPI config() {
         Info info = new Info()
                 .title("FINOS TraderX Position Service")
                 .version("0.1.0")

@@ -13,8 +13,8 @@ public class PubSubConfig {
     @Value("${trade.feed.address}")
     private String tradeFeedAddress;
 
-    @Bean 
-    public Publisher<TradeOrder> tradePublisher() {
+    @Bean
+    Publisher<TradeOrder> tradePublisher() {
         SocketIOJSONPublisher<TradeOrder> publisher = new SocketIOJSONPublisher<TradeOrder>(){};
         publisher.setTopic("/trades");
         publisher.setSocketAddress(tradeFeedAddress);
