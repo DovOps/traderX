@@ -1,9 +1,9 @@
 # Supply Chain Resiliency Initiative - Meeting Agenda
 
-**Date**: [Meeting Date]
+**Date**: 2026-02-10
 **Time**: Tuesday, 12:30pm Eastern
 **Duration**: 60 minutes
-**Location**: [Virtual Meeting Link]
+**Location**: Zoom
 
 ---
 
