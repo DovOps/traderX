@@ -18,18 +18,20 @@
 
 ## Attendees
 
-### Expected Participants
-- **FINOS Leadership**: Gabriele Columbro (Executive Director), Rob Moffat (Chief Architect)
+### Participants
+- **FINOS Leadership**: Gabriele Columbro (Executive Director)
 - **Member Firm Representatives**:
   - Dov Katz (Morgan Stanley)
-  - Denis Urusov
-  - Bryan Halter
+  - Denis Urusov (Citi)
   - Brian Fox (Sonatype)
-  - Angelique Nayman
+  - Angelique Nayman (Citi)
+- **Not Present**
+  - Rob Moffat (Chief Architect, FINOS)
+  - Bryan Halter
   - [RBC representative - follow-up with James]
   - [NatWest representative - follow-up with Bhupesh]
 
-### Guest Presenters (if approved)
+### Guest Presenters (Not invited to this meeting)
 - Moderne representatives (for Backpatch Alliance deep dive)
 
 ---
