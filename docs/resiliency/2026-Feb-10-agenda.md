@@ -9,8 +9,8 @@
 
 ## Meeting Objectives
 
-1. Review and approve scope document for Supply Chain Resiliency Initiative
-2. Discuss integration of Open Backpatch Alliance opportunity
+1. Review and approve [scope document for Supply Chain Resiliency Initiative](scope.md)
+2. Discuss integration of [Open Backpatch Alliance opportunity](moderne-backpatch-alliance-concept.md)
 3. Identify member firm commitments for working group formation
 4. Define next steps ahead of March 2026 FINOS Governing Board meeting
 
