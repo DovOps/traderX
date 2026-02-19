@@ -1,0 +1,3 @@
+Entity ID,Source path,Client class,Target service,Client type,Protocol,Base URL
+external:finos.traderx.accountservice.controller.AccountUserController,account-service/src/main/java/finos/traderx/accountservice/controller/AccountUserController.java,finos.traderx.accountservice.controller.AccountUserController,Account User Controller Service,Spring RestTemplate,,
+external:finos.traderx.tradeservice.controller.TradeOrderController,trade-service/src/main/java/finos/traderx/tradeservice/controller/TradeOrderController.java,finos.traderx.tradeservice.controller.TradeOrderController,Trade Order Controller Service,Spring RestTemplate,,

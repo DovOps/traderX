@@ -471,3 +471,7 @@ website/.docusaurus
 website/npm-debug.log*
 website/yarn-debug.log*
 website/yarn-error.log*
+
+# Moderne CLI
+.moderne/*
+!.moderne/context/

@@ -1,0 +1,8 @@
+Source path,Configuration type,Auth method,Allowed origins,Description
+account-service/src/main/java/finos/traderx/accountservice/controller/AccountController.java,CORS,,*,Cross-origin requests allowed from *
+account-service/src/main/java/finos/traderx/accountservice/controller/AccountUserController.java,CORS,,*,Cross-origin requests allowed from *
+position-service/src/main/java/finos/traderx/positionservice/controller/HealthController.java,CORS,,*,Cross-origin requests allowed from *
+position-service/src/main/java/finos/traderx/positionservice/controller/PositionController.java,CORS,,*,Cross-origin requests allowed from *
+position-service/src/main/java/finos/traderx/positionservice/controller/TradeController.java,CORS,,*,Cross-origin requests allowed from *
+trade-processor/src/main/java/finos/traderx/tradeprocessor/controller/TradeServiceController.java,CORS,,*,Cross-origin requests allowed from *
+trade-service/src/main/java/finos/traderx/tradeservice/controller/TradeOrderController.java,CORS,,*,Cross-origin requests allowed from *

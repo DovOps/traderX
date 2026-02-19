@@ -1,0 +1,5 @@
+Source path,Server port,SSL enabled,Context path,Protocol
+account-service/src/main/resources/application.properties,8080,false,,HTTP
+position-service/src/main/resources/application.properties,8080,false,,HTTP
+trade-processor/src/main/resources/application.properties,8080,false,,HTTP
+trade-service/src/main/resources/application.properties,8080,false,,HTTP

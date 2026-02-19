@@ -1,0 +1,367 @@
+{
+  "nodes" : [ {
+    "unique-id" : "account-controller",
+    "node-type" : "service",
+    "name" : "AccountController",
+    "description" : "REST API with endpoints: GET /account/{id}, POST /account/, PUT /account/, GET /account/",
+    "interfaces" : [ {
+      "unique-id" : "account-controller-api",
+      "port" : 8080
+    } ]
+  }, {
+    "unique-id" : "account-user-controller",
+    "node-type" : "service",
+    "name" : "AccountUserController",
+    "description" : "REST API with endpoints: GET /accountuser/{id}, POST /accountuser/, PUT /accountuser/, GET /accountuser/",
+    "interfaces" : [ {
+      "unique-id" : "account-user-controller-api",
+      "port" : 8080
+    } ]
+  }, {
+    "unique-id" : "docs-controller",
+    "node-type" : "service",
+    "name" : "DocsController",
+    "description" : "REST API with endpoints: GET /",
+    "interfaces" : [ {
+      "unique-id" : "docs-controller-api",
+      "port" : 8080
+    } ]
+  }, {
+    "unique-id" : "health-controller",
+    "node-type" : "service",
+    "name" : "HealthController",
+    "description" : "REST API with endpoints: GET /health/ready, GET /health/alive",
+    "interfaces" : [ {
+      "unique-id" : "health-controller-api",
+      "port" : 8080
+    } ]
+  }, {
+    "unique-id" : "position-controller",
+    "node-type" : "service",
+    "name" : "PositionController",
+    "description" : "REST API with endpoints: GET /positions/{accountId}, GET /positions/",
+    "interfaces" : [ {
+      "unique-id" : "position-controller-api",
+      "port" : 8080
+    } ]
+  }, {
+    "unique-id" : "trade-controller",
+    "node-type" : "service",
+    "name" : "TradeController",
+    "description" : "REST API with endpoints: GET /trades/{accountId}, GET /trades/",
+    "interfaces" : [ {
+      "unique-id" : "trade-controller-api",
+      "port" : 8080
+    } ]
+  }, {
+    "unique-id" : "trade-service-controller",
+    "node-type" : "service",
+    "name" : "TradeServiceController",
+    "description" : "REST API with endpoints: POST /tradeservice/order",
+    "interfaces" : [ {
+      "unique-id" : "trade-service-controller-api",
+      "port" : 8080
+    } ]
+  }, {
+    "unique-id" : "trade-order-controller",
+    "node-type" : "service",
+    "name" : "TradeOrderController",
+    "description" : "REST API with endpoints: POST /trade/",
+    "interfaces" : [ {
+      "unique-id" : "trade-order-controller-api",
+      "port" : 8080
+    } ]
+  }, {
+    "unique-id" : "web-client",
+    "node-type" : "webclient",
+    "name" : "Web Client",
+    "description" : "Web application client accessing the API from *"
+  }, {
+    "unique-id" : "a-c-c-o-u-n-t-s-db",
+    "node-type" : "database",
+    "name" : "ACCOUNTS Store",
+    "description" : "SQL database for ACCOUNTS data"
+  }, {
+    "unique-id" : "accountusers-db",
+    "node-type" : "database",
+    "name" : "Accountusers Store",
+    "description" : "SQL database for Accountusers data"
+  }, {
+    "unique-id" : "account-db",
+    "node-type" : "database",
+    "name" : "Account Store",
+    "description" : "SQL database for Account data"
+  }, {
+    "unique-id" : "account-user-db",
+    "node-type" : "database",
+    "name" : "AccountUser Store",
+    "description" : "SQL database for AccountUser data"
+  }, {
+    "unique-id" : "p-o-s-i-t-i-o-n-s-db",
+    "node-type" : "database",
+    "name" : "POSITIONS Store",
+    "description" : "SQL database for POSITIONS data"
+  }, {
+    "unique-id" : "t-r-a-d-e-s-db",
+    "node-type" : "database",
+    "name" : "TRADES Store",
+    "description" : "SQL database for TRADES data"
+  }, {
+    "unique-id" : "position-db",
+    "node-type" : "database",
+    "name" : "Position Store",
+    "description" : "SQL database for Position data"
+  }, {
+    "unique-id" : "trade-db",
+    "node-type" : "database",
+    "name" : "Trade Store",
+    "description" : "SQL database for Trade data"
+  }, {
+    "unique-id" : "account-user-controller-service",
+    "node-type" : "service",
+    "name" : "Account User Controller Service",
+    "description" : "External Spring RestTemplate service"
+  }, {
+    "unique-id" : "trade-order-controller-service",
+    "node-type" : "service",
+    "name" : "Trade Order Controller Service",
+    "description" : "External Spring RestTemplate service"
+  } ],
+  "relationships" : [ {
+    "unique-id" : "web-client-interacts-account-controller",
+    "relationship-type" : {
+      "interacts" : {
+        "actor" : "web-client",
+        "nodes" : [ "account-controller" ]
+      }
+    },
+    "protocol" : "HTTP"
+  }, {
+    "unique-id" : "docs-controller-to-a-c-c-o-u-n-t-s-db",
+    "relationship-type" : {
+      "connects" : {
+        "source" : {
+          "node" : "docs-controller"
+        },
+        "destination" : {
+          "node" : "a-c-c-o-u-n-t-s-db"
+        }
+      }
+    },
+    "protocol" : "JDBC"
+  }, {
+    "unique-id" : "docs-controller-to-accountusers-db",
+    "relationship-type" : {
+      "connects" : {
+        "source" : {
+          "node" : "docs-controller"
+        },
+        "destination" : {
+          "node" : "accountusers-db"
+        }
+      }
+    },
+    "protocol" : "JDBC"
+  }, {
+    "unique-id" : "docs-controller-to-account-db",
+    "relationship-type" : {
+      "connects" : {
+        "source" : {
+          "node" : "docs-controller"
+        },
+        "destination" : {
+          "node" : "account-db"
+        }
+      }
+    },
+    "protocol" : "JDBC"
+  }, {
+    "unique-id" : "docs-controller-to-account-user-db",
+    "relationship-type" : {
+      "connects" : {
+        "source" : {
+          "node" : "docs-controller"
+        },
+        "destination" : {
+          "node" : "account-user-db"
+        }
+      }
+    },
+    "protocol" : "JDBC"
+  }, {
+    "unique-id" : "health-controller-to-p-o-s-i-t-i-o-n-s-db",
+    "relationship-type" : {
+      "connects" : {
+        "source" : {
+          "node" : "health-controller"
+        },
+        "destination" : {
+          "node" : "p-o-s-i-t-i-o-n-s-db"
+        }
+      }
+    },
+    "protocol" : "JDBC"
+  }, {
+    "unique-id" : "health-controller-to-t-r-a-d-e-s-db",
+    "relationship-type" : {
+      "connects" : {
+        "source" : {
+          "node" : "health-controller"
+        },
+        "destination" : {
+          "node" : "t-r-a-d-e-s-db"
+        }
+      }
+    },
+    "protocol" : "JDBC"
+  }, {
+    "unique-id" : "health-controller-to-position-db",
+    "relationship-type" : {
+      "connects" : {
+        "source" : {
+          "node" : "health-controller"
+        },
+        "destination" : {
+          "node" : "position-db"
+        }
+      }
+    },
+    "protocol" : "JDBC"
+  }, {
+    "unique-id" : "health-controller-to-trade-db",
+    "relationship-type" : {
+      "connects" : {
+        "source" : {
+          "node" : "health-controller"
+        },
+        "destination" : {
+          "node" : "trade-db"
+        }
+      }
+    },
+    "protocol" : "JDBC"
+  }, {
+    "unique-id" : "account-user-controller-to-account-user-controller-service",
+    "relationship-type" : {
+      "connects" : {
+        "source" : {
+          "node" : "account-user-controller"
+        },
+        "destination" : {
+          "node" : "account-user-controller-service"
+        }
+      }
+    },
+    "protocol" : "HTTPS"
+  }, {
+    "unique-id" : "trade-order-controller-to-trade-order-controller-service",
+    "relationship-type" : {
+      "connects" : {
+        "source" : {
+          "node" : "trade-order-controller"
+        },
+        "destination" : {
+          "node" : "trade-order-controller-service"
+        }
+      }
+    },
+    "protocol" : "HTTPS"
+  }, {
+    "unique-id" : "account-controller-calls-docs-controller",
+    "relationship-type" : {
+      "interacts" : {
+        "actor" : "account-controller",
+        "nodes" : [ "docs-controller" ]
+      }
+    }
+  }, {
+    "unique-id" : "account-user-controller-service-calls-docs-controller",
+    "relationship-type" : {
+      "interacts" : {
+        "actor" : "account-user-controller-service",
+        "nodes" : [ "docs-controller" ]
+      }
+    }
+  }, {
+    "unique-id" : "docs-controller-calls-account-db",
+    "relationship-type" : {
+      "interacts" : {
+        "actor" : "docs-controller",
+        "nodes" : [ "account-db" ]
+      }
+    }
+  }, {
+    "unique-id" : "docs-controller-calls-account-user-db",
+    "relationship-type" : {
+      "interacts" : {
+        "actor" : "docs-controller",
+        "nodes" : [ "account-user-db" ]
+      }
+    }
+  }, {
+    "unique-id" : "health-controller-calls-health-controller",
+    "relationship-type" : {
+      "interacts" : {
+        "actor" : "health-controller",
+        "nodes" : [ "health-controller" ]
+      }
+    }
+  }, {
+    "unique-id" : "position-controller-calls-health-controller",
+    "relationship-type" : {
+      "interacts" : {
+        "actor" : "position-controller",
+        "nodes" : [ "health-controller" ]
+      }
+    }
+  }, {
+    "unique-id" : "trade-controller-calls-health-controller",
+    "relationship-type" : {
+      "interacts" : {
+        "actor" : "trade-controller",
+        "nodes" : [ "health-controller" ]
+      }
+    }
+  }, {
+    "unique-id" : "health-controller-calls-position-db",
+    "relationship-type" : {
+      "interacts" : {
+        "actor" : "health-controller",
+        "nodes" : [ "position-db" ]
+      }
+    }
+  }, {
+    "unique-id" : "health-controller-calls-trade-db",
+    "relationship-type" : {
+      "interacts" : {
+        "actor" : "health-controller",
+        "nodes" : [ "trade-db" ]
+      }
+    }
+  }, {
+    "unique-id" : "trade-service-controller-calls-trade-service-controller",
+    "relationship-type" : {
+      "interacts" : {
+        "actor" : "trade-service-controller",
+        "nodes" : [ "trade-service-controller" ]
+      }
+    }
+  }, {
+    "unique-id" : "trade-service-controller-calls-position-db",
+    "relationship-type" : {
+      "interacts" : {
+        "actor" : "trade-service-controller",
+        "nodes" : [ "position-db" ]
+      }
+    }
+  }, {
+    "unique-id" : "trade-service-controller-calls-trade-db",
+    "relationship-type" : {
+      "interacts" : {
+        "actor" : "trade-service-controller",
+        "nodes" : [ "trade-db" ]
+      }
+    }
+  } ],
+  "$schema" : "https://calm.finos.org/draft/2025-03/meta/calm.json"
+}

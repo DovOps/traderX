@@ -1,0 +1,23 @@
+Source path,Artifact type,Container image,Exposed port,Description
+docker-compose.yml,docker-compose,,,"Docker Compose configuration with 10 service(s): database, reference-data, trade-feed, people-service, account-service, position-service, trade-service, trade-processor, web-front-end-angular, ingress"
+gitops/base/account-service/deployment.yaml,Kubernetes,,,Kubernetes Deployment 'account-service'
+gitops/base/account-service/service.yaml,Kubernetes,,,Kubernetes Service 'account-service'
+gitops/base/database/deployment.yaml,Kubernetes,,,Kubernetes Deployment 'database-deployment'
+gitops/base/database/service.yaml,Kubernetes,,,Kubernetes Service 'database'
+gitops/base/ingress/ingress.yaml,Kubernetes,,,Kubernetes Ingress 'traderx-ingress'
+gitops/base/people-service/deployment.yaml,Kubernetes,,,Kubernetes Deployment 'people-service'
+gitops/base/people-service/service.yaml,Kubernetes,,,Kubernetes Service 'people-service'
+gitops/base/position-service/deployment.yaml,Kubernetes,,,Kubernetes Deployment 'position-service'
+gitops/base/position-service/service.yaml,Kubernetes,,,Kubernetes Service 'position-service'
+gitops/base/reference-data/deployment.yaml,Kubernetes,,,Kubernetes Deployment 'reference-data'
+gitops/base/reference-data/service.yaml,Kubernetes,,,Kubernetes Service 'reference-data'
+gitops/base/trade-feed/deployment.yaml,Kubernetes,,,Kubernetes Deployment 'trade-feed'
+gitops/base/trade-feed/service.yaml,Kubernetes,,,Kubernetes Service 'trade-feed'
+gitops/base/trade-processor/deployment.yaml,Kubernetes,,,Kubernetes Deployment 'trade-processor-deployment'
+gitops/base/trade-processor/service.yaml,Kubernetes,,,Kubernetes Service 'trade-processor'
+gitops/base/trade-service/deployment.yaml,Kubernetes,,,Kubernetes Deployment 'trade-service'
+gitops/base/trade-service/service.yaml,Kubernetes,,,Kubernetes Service 'trade-service'
+gitops/base/web-front-end/deployment.yaml,Kubernetes,,,Kubernetes Deployment 'web-front-end-angular'
+gitops/base/web-front-end/service.yaml,Kubernetes,,,Kubernetes Service 'web-front-end-angular'
+gitops/local/traderx/kustomization.yaml,Kubernetes,,,Kubernetes Kustomization
+gitops/local/traderx/namespace.yaml,Kubernetes,,,Kubernetes Namespace 'traderx'

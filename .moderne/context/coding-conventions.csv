@@ -1,0 +1,20 @@
+Convention type,Pattern,Example,Frequency,Scope
+naming,Config suffix for classes,OpenApiConfig,,project-wide
+naming,Controller suffix for classes,AccountController,,project-wide
+naming,get* method naming pattern,getAccountById,,project-wide
+naming,create* method naming pattern,createAccount,,project-wide
+naming,update* method naming pattern,updateAccount,,project-wide
+naming,camelCase for constants,logger,,project-wide
+naming,validate* method naming pattern,validatePerson,,project-wide
+naming,Exception suffix for classes,ResourceNotFoundException,,project-wide
+naming,set* method naming pattern,setId,,project-wide
+naming,Repository suffix for classes,AccountRepository,,project-wide
+naming,Service suffix for classes,AccountService,,project-wide
+naming,is* method naming pattern,isReady,,project-wide
+naming,find* method naming pattern,findByAccountId,,project-wide
+comments,Classes have Javadoc documentation,SocketIOJSONPublisher,,project-wide
+naming,Handler suffix for classes,TradeFeedHandler,,project-wide
+naming,process* method naming pattern,processOrder,,project-wide
+naming,load* method naming pattern,loadCsvData,,project-wide
+naming,_prefix for fields,_account,,project-wide
+naming,handle* method naming pattern,handleError,,project-wide
